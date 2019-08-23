@@ -4,7 +4,7 @@ const argv = require('yargs').argv;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const webpack = require('webpack');
 const isDevelopment = argv.mode === 'development';
 const isProduction = !isDevelopment;
 const distPath = path.join(__dirname, '/public');
@@ -74,6 +74,11 @@ const config = {
     }]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
